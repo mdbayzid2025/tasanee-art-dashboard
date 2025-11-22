@@ -31,7 +31,7 @@ const authApi = baseApi.injectEndpoints({
     }),
     getProfile: build.query({
       query: () => ({
-        url: "/user/profile",
+        url: "/users/profile",
       }),
       transformResponse: (res: { data: UserType }) => res?.data,
     }),

@@ -2,24 +2,24 @@ import { Button } from "antd";
 import JoditEditor from "jodit-react";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import {
-  useAddDisclaimerMutation,
-  useGetPrivacyPolicyQuery,
-} from "../../redux/features/setting/settingApi";
+import { useAddDisclaimerMutation, useGetAboutQuery } from "../../redux/features/setting/settingApi";
 
-const PrivacyPolicy = () => {
+const About = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
   const [showEditor, setShowEditor] = useState(false);
 
-  const { data: privacyData, refetch } = useGetPrivacyPolicyQuery(undefined);
+  const {data: aboutData} = useGetAboutQuery(undefined);
   const [addDisclaimer] = useAddDisclaimerMutation();
 
-  useEffect(() => {
-    if (privacyData) {
-      setContent(privacyData?.content);
+  if(aboutData){console.log("aboutData",aboutData);
+  }
+
+  useEffect(()=>{
+    if(aboutData){
+      setContent(aboutData?.content)
     }
-  }, [privacyData]);
+  },[aboutData])
 
   const handleSubmit = async () => {
     const tempDiv = document.createElement("div");
@@ -32,20 +32,16 @@ const PrivacyPolicy = () => {
     }
 
     try {
-      const res = await addDisclaimer({
-        type: "privacy-policy",
-        content,
-      }).unwrap();
-
+      const res = await addDisclaimer({type: "about", content}).unwrap();
+      
+        
       toast.success(res?.message);
       setShowEditor(false);
-      refetch()
     } catch (err) {
       console.error("Error saving:", err);
       toast.error("Failed to save content");
     }
   };
-
   const config = React.useMemo(
     () => ({
       theme: "default",
@@ -98,7 +94,7 @@ const PrivacyPolicy = () => {
       readonly: false,
       style: {
         height: "60vh",
-        background: "#ededeed",
+        background: "#ededeed",        
       },
       observer: { timeout: 100 },
     }),
@@ -108,7 +104,7 @@ const PrivacyPolicy = () => {
   return (
     <div className="bg-white h-full p-4 rounded-2xl">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl text-primary font-semibold">Privacy Policy</h1>
+        <h1 className="text-2xl text-primary font-semibold">About</h1>
         <Button
           onClick={() => setShowEditor(!showEditor)}
           type="primary"
@@ -133,7 +129,7 @@ const PrivacyPolicy = () => {
             value={content}
             // @ts-ignore
             config={config}
-            tabIndex={1}
+            tabIndex={1} // tabIndex of textarea
             onBlur={(newContent) => setContent(newContent)}
           />
           <div className="flex items-center justify-end gap-4">
@@ -189,4 +185,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default About;

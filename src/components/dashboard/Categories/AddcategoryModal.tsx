@@ -32,7 +32,6 @@ const AddcategoryModal = ({
   const [updateCategory] = useUpdateCategoryMutation();
   const [addCategory] = useAddCategoryMutation();
 
-
   useEffect(() => {
     if (editData) {
       form.setFieldsValue(editData);
@@ -41,7 +40,7 @@ const AddcategoryModal = ({
 
   const handleAddCategory = async (values: any) => {
     try {
-      if (editData) {              
+      if (editData) {
         const formData = new FormData();
         formData.append("title", values?.title);
         // @ts-ignore
@@ -71,11 +70,11 @@ const AddcategoryModal = ({
         const res = await addCategory(formData);
         if (res?.data) {
           refetch();
-          form.resetFields();
           setImgURL(null);
           setImageFile(null);
-
+          setSelectedCategory(null);
           toast.success(res?.data?.message);
+          form.resetFields();
           setOpen(false);
           setLoading(false);
         }
@@ -187,7 +186,7 @@ const AddcategoryModal = ({
             size="large"
             htmlType="submit"
             style={{ width: "100%", background: "#8B4E2E", marginTop: 30 }}
-            // loading={loading}
+            loading={loading}
           >
             {editData ? "Edit" : "Add"} Category
           </Button>

@@ -19,12 +19,15 @@ import { ChangePassword } from "../dashboard/ChangePassword";
 import PrivacyPolicy from "../dashboard/PrivacyPolicy";
 import TermsCondition from "../dashboard/TermsCondition";
 import PrivateRoute from "./PrivateRoute";
+import About from "../dashboard/About";
+import FAQ from "../dashboard/FAQ/Faq";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <PrivateRoute> <MainLayout /> </PrivateRoute>,
+        // element: <PrivateRoute> <MainLayout /> </PrivateRoute>,
+        element:  <MainLayout />,
         errorElement: <ErrorPage />,
         children: [
             {
@@ -62,6 +65,18 @@ const router = createBrowserRouter([
                 element: <TermsCondition />
             },
 
+            {
+                path: "about",
+                element: <About/>
+            },
+            {
+                path: "faq",
+                element: <FAQ/>
+            },
+            {
+                path: "policy",
+                element: <PrivacyPolicy/>
+            },
             {
                 path: "policy",
                 element: <PrivacyPolicy/>

@@ -28,11 +28,11 @@ const AdminList = () => {
         id: record?._id,
         status: record?.status == "ACTIVE" ? "INACTIVE" : "ACTIVE",
       };
-      const res = await updateUser(data);
+      const res = await updateUser(data).unwrap();
 
       toast.success(res?.data?.message);
-    } catch (error) {
-      console.log(" handleUpdateStatus error", error);
+    } catch (error : any) {
+      toast.error(error?.data?.message);
     }
   };
 
@@ -45,8 +45,10 @@ const AdminList = () => {
       toast.success("Admin delete Success");
       setSelectedUser(null);
       setOpenConfirm(false);
-    } catch (error) {      
-      toast.error((error as any)?.data?.message);
+    } catch (error : any) {     
+      console.log("update", error);
+      
+      toast.error(error?.data?.message);
     }
   };
   const columns = [

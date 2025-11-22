@@ -29,9 +29,9 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
     <Modal
       open={open}
       title={
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 border-b border-primary/20 pb-4">
           <ExclamationCircleOutlined className="text-red-500 text-2xl" />
-          <p className="text-xl font-semibold text-slate-800">{title}</p>
+          <p className="text-xl font-semibold text-primary">{title}</p>
         </div>
       }
       onOk={onConfirm}

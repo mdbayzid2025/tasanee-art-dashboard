@@ -1,7 +1,15 @@
 import { BellOutlined } from "@ant-design/icons";
 import { Avatar, Badge, Button } from "antd";
+import { useGetProfileQuery } from "../../redux/features/auth/authApi";
+import { imageUrl } from "../../redux/base/baseAPI";
 
 const DashboardHeader = () => {
+
+  const {data: profileData} = useGetProfileQuery(undefined);
+
+  if(profileData){console.log("profileData",profileData)}
+
+
   return (
     <div className="h-[80px] border-b border-gray-300 flex items-center justify-end pr-5 bg-white gap-5">
       <Badge count={0} showZero>
@@ -20,14 +28,15 @@ const DashboardHeader = () => {
           size={50}
           src={
             <img
-              src="https://images.pexels.com/photos/14084487/pexels-photo-14084487.jpeg"
+            // @ts-ignore
+              src={profileData?.profileImage ? `${imageUrl}${profileData?.profileImage}` : '/placeholder.png'}
               alt="avatar"
             />
           }
         />
         <div className="">
-          <p className="font-bold text-lg">Md. Bayzid</p>
-          <p className="text-slate-500 font-semibold">abc.example@gmail.com</p>
+          <p className="font-bold text-lg">{profileData?.name}</p>
+          <p className="text-slate-500 font-semibold">{profileData?.email}</p>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ const { Sider } = Layout;
 
 const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const generateSidebarItems = (items: any) => {
     return items?.map((item: any) => {
@@ -31,7 +32,6 @@ const Sidebar = () => {
     });
   };
 
-  const navigate = useNavigate();
 
   const handleLogout = () =>{
     navigate("/login");
@@ -53,6 +53,7 @@ const Sidebar = () => {
             itemBorderRadius: 0,
             itemHeight: 45,
             itemMarginBlock: 12,
+            motionDurationFast: "0.1s",            
           },
         },
       }}

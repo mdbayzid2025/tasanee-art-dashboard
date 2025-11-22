@@ -6,6 +6,7 @@ import { Button, Form, Input, Modal } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import TextArea from "antd/es/input/TextArea";
 import toast from "react-hot-toast";
+import { useAddFAQMutation, useUpdateFAQMutation } from "../../../redux/features/setting/settingApi";
 
 
 const FaqAddModal = ({
@@ -78,7 +79,7 @@ const FaqAddModal = ({
         style={{ marginTop: 15 }}
       >
         <FormItem
-          label={<p className="text-slate-300">{editData ? "Update FAQ" : "Add FAQ"}</p>}
+          label={<p className="text-slate-700 font-semibold">{editData ? "Update FAQ" : "Add FAQ"}</p>}
           name="question"
           rules={[
             {
@@ -88,14 +89,14 @@ const FaqAddModal = ({
           ]}
         >
           <Input
-            style={{ height: 42 }}
+            style={{ height: 42, color: '#121212' }}
             name="question"
             placeholder="Your faq question"
           />
         </FormItem>
         <FormItem
           name="answer"
-          label={<p className="text-slate-300">{editData ? "Update Answer" : "Add Answer"}</p>}
+          label={<p className="text-slate-700 font-semibold">{editData ? "Update Answer" : "Add Answer"}</p>}
           rules={[
             {
               required: true,
@@ -104,7 +105,7 @@ const FaqAddModal = ({
           ]}
         >
           {/* <TextArea style={{ height: 42 }} name="answer" placeholder='Your faq answer' /> */}
-          <TextArea rows={4} name="answer" placeholder="Your faq answer" />
+          <TextArea rows={4} style={{color: '#121212'}} name="answer" placeholder="Your faq answer" />
         </FormItem>
         <div className="flex items-center justify-center">
           <Button className="" type="primary" size="large" htmlType="submit">

@@ -12,7 +12,15 @@ import {
 
 const { Option } = Select;
 
-const TotalUserChart = () => {
+type TUserGrowth = {
+  month: string;
+  totalUsers: number;
+}
+const TotalUserChart = ({userGrowth}: {userGrowth: TUserGrowth[]} ) => {
+
+  console.log("userGrowth", userGrowth);
+
+
   const CustomTooltip = ({ active, payload,  coordinate }: any) => {
     const isVisible = active && payload && payload.length;
     const tooltipHeight = 40; // Height of your tooltip (you may need to adjust this)
@@ -84,7 +92,7 @@ const TotalUserChart = () => {
       <div className="mt-6">
         <ResponsiveContainer width="100%" height={200}>
           <BarChart
-            data={userChartData}
+            data={userGrowth}
             style={{ backgroundColor: "rgba(0,0,,0,.3)" }}
             margin={{
               top: 5,
@@ -101,7 +109,7 @@ const TotalUserChart = () => {
             <Bar
               barSize={25}
               //   radius={50}
-              dataKey="Users"
+              dataKey="newUser"
               fill="#8B4E2E"
             />
           </BarChart>

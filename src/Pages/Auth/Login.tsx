@@ -1,16 +1,15 @@
 import { Button, Checkbox, ConfigProvider, Form, Input } from "antd";
 import { useForm } from "antd/es/form/Form";
 import FormItem from "antd/es/form/FormItem";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 import {
-  MdEmail,
   MdOutlineVisibility,
-  MdOutlineVisibilityOff,
+  MdOutlineVisibilityOff
 } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginAdminMutation } from "../../redux/features/auth/authApi";
-import Cookies from "js-cookie";
-import toast from "react-hot-toast";
-import { useEffect } from "react";
 
 const Login = () => {
   const [form] = useForm();
@@ -37,7 +36,9 @@ const Login = () => {
       Cookies.set("accessToken", res?.data?.token);
       
       navigate("/")
-    } catch (error) {
+    } catch (error:any) {
+      console.log("error", error);
+      
       toast.error((error as any)?.data?.message);
     }
   };

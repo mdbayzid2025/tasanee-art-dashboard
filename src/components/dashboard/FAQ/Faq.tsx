@@ -4,13 +4,11 @@ import { FiEdit, FiPlus } from "react-icons/fi";
 import { GoTrash } from "react-icons/go";
 
 
-import {
-  useDeleteFAQMutation,
-  useGetFAQQuery,
-} from "../redux/features/setting/settingApi";
+
 import ConfirmModel from "../../UI/ConfirmModel";
 import FaqAddModal from "./FaqAddModal";
 import toast from "react-hot-toast";
+import { useDeleteFAQMutation, useGetFAQQuery } from "../../../redux/features/setting/settingApi";
 
 const FAQ = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -26,7 +24,7 @@ const FAQ = () => {
     key: index,
     label: (
       <div className="flex justify-between items-center w-full">
-        <span className="text-base font-medium">{faq.question}</span>
+        <span className="text-base font-medium text-white">{faq.question}</span>
         <div className="flex items-center gap-3">
           <FiEdit
             size={20}
@@ -38,8 +36,8 @@ const FAQ = () => {
             }}
           />
           <GoTrash
-            size={20}
-            className="text-red-600 cursor-pointer hover:text-red-800"
+            size={22}
+            className="text-red-400 cursor-pointer hover:text-red-800"
             onClick={() => {
               setOpenConfirm(true);
               setSelectedFaq(faq);
@@ -69,9 +67,9 @@ const FAQ = () => {
   };
 
   return (
-    <div className=" md:p-6 rounded-2xl">
+    <div className=" md:p-6 rounded-2xl bg-white h-full">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold text-grayMedium mb-6">FAQ</h1>
+        <h1 className="text-xl font-semibold text-primary mb-6">FAQ</h1>
         <Button
           onClick={() => setOpen(!open)}
           type="primary"
