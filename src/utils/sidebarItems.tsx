@@ -32,18 +32,7 @@ export const sidebarItems = [
     path: "transaction",
     icon: <GrTransaction size={20} />,
   },
-  {
-    key: "transaction",
-    label: "Transaction",
-    path: "transaction",
-    icon: <GrTransaction size={20} />,
-  },
-  {
-    key: "transaction",
-    label: "Transaction",
-    path: "transaction",
-    icon: <GrTransaction size={20} />,
-  },
+ 
   {
     key: "all-admin",
     label: "Admin Manage",

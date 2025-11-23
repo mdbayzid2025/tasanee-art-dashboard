@@ -12,7 +12,7 @@ const DashboardHeader = () => {
 
   return (
     <div className="h-[80px] border-b border-gray-300 flex items-center justify-end pr-5 bg-white gap-5">
-      <Badge count={0} showZero>
+      {/* <Badge count={0} showZero>
         <Button
           size="large"
           icon={
@@ -21,7 +21,7 @@ const DashboardHeader = () => {
           href="https://www.google.com"
           target="_blank"
         />
-      </Badge>
+      </Badge> */}
 
       <div className="flex items-center gap-3">
         <Avatar

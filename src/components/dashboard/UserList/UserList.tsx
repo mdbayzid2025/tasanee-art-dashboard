@@ -2,7 +2,7 @@ import {
   EyeOutlined,
   SearchOutlined
 } from "@ant-design/icons";
-import { Button, Divider, Form, Input, Modal, Space, Table, Tooltip } from "antd";
+import { Button, Divider, Form, Input, Modal, Select, Space, Table, Tooltip } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import { useEffect, useState } from "react";
 import { CiLock, CiUnlock } from "react-icons/ci";
@@ -14,40 +14,45 @@ import toast from "react-hot-toast";
 import dayjs from "dayjs";
 import { getSearchParams } from "../../../utils/getSearchParams";
 
+
+
 const UserList = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [openWarning, setOpenWarning] = useState(false);
   const [openUserDetails, setOpenUserDetails] = useState(false);
-  const {data: usersData, isLoading, refetch} = useGetUsersQuery(undefined)
+  const { data: usersData, isLoading, refetch } = useGetUsersQuery(undefined)
   const [currentPage, setCurrentPage] = useState(1)
 
   const [updateUser] = useUpdateUserMutation()
-
-  const {searchTerm} = getSearchParams();
+  const { searchTerm, page, role } = getSearchParams();
   const updateSearchParams = useUpdateSearchParams()
-  
-  useEffect(()=>{
-    refetch()
-  },[searchTerm])
 
-  const handleUpdateStatus = async (record :any)=>{
+  useEffect(() => {
+    refetch()
+  }, [searchTerm, page, role])
+
+  const pageSize = usersData?.pagination?.limit ?? 10;
+
+
+
+  const handleUpdateStatus = async (record: any) => {
     try {
-      const data = {id: record?._id, status : record?.status == 'ACTIVE' ? 'INACTIVE' : 'ACTIVE' }
+      const data = { id: record?._id, status: record?.status == 'ACTIVE' ? 'INACTIVE' : 'ACTIVE' }
       const res = await updateUser(data);
-      
+
       toast.success(res?.data?.message);
     } catch (error) {
-      console.log(" handleUpdateStatus error",error);      
+      console.log(" handleUpdateStatus error", error);
     }
   }
-  const pageSize = usersData?.pagination?.limit ?? 10;
+
 
   const columns = [
     {
       title: "SL No",
       dataIndex: "slNo",
       key: "slNo",
-      render: (_ :any, __ :any, index :any) => index + 1,
+      render: (_: any, __: any, index: any) => (currentPage - 1) * pageSize + index + 1,
       width: 80,
     },
     {
@@ -60,23 +65,23 @@ const UserList = () => {
       dataIndex: "email",
       key: "email",
     },
-           
+
     {
       title: "Role",
       dataIndex: "role",
       key: "role",
     },
-     {
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (text : string)=> <span className={`${text == 'ACTIVE' ? 'text-green-500' : 'text-red-400'} font-semibold`}>{text}</span>
-    },  
+      render: (text: string) => <span className={`${text == 'ACTIVE' ? 'text-green-500' : 'text-red-400'} font-semibold`}>{text}</span>
+    },
     {
       title: "Join Date",
       dataIndex: "joinDate",
       key: "joinDate",
-      render: (text : string)=> dayjs(text).format("DD MMM, YY")
+      render: (text: string) => dayjs(text).format("DD MMM, YY")
     },
     {
       title: "Action",
@@ -95,21 +100,21 @@ const UserList = () => {
             />
           </Tooltip>
           <Tooltip title={record?.status == "Active" ? "Active" : "Banned"}>
-            <div className="" onClick={()=>handleUpdateStatus(record)}>
-           { record?.status?.toLowerCase() == "active" ?  <CiUnlock
-              size={20}
-              style={{ color: "green", cursor: "pointer" }}
-              onClick={() => console.log("Banned:", record)}
-            />  :
-             <CiLock
-              size={20}
-              style={{ color: "red", cursor: "pointer" }}
-              onClick={() => console.log("Banned:", record)}
-            />
-            }
+            <div className="" onClick={() => handleUpdateStatus(record)}>
+              {record?.status?.toLowerCase() == "active" ? <CiUnlock
+                size={20}
+                style={{ color: "green", cursor: "pointer" }}
+                onClick={() => console.log("Banned:", record)}
+              /> :
+                <CiLock
+                  size={20}
+                  style={{ color: "red", cursor: "pointer" }}
+                  onClick={() => console.log("Banned:", record)}
+                />
+              }
             </div>
 
-          </Tooltip>          
+          </Tooltip>
           <Tooltip title="Edit">
             <TbMessageDots
               size={20}
@@ -129,26 +134,45 @@ const UserList = () => {
     <div className="bg-white rounded-xl p-6 h-full">
       <div className="flex items-center justify-between mb-6 ">
         <h1 className="text-2xl text-primary font-semibold">User Management</h1>
-        <Form>
-          <div className="flex items-center">
-            <Input
-              id="search"
-              placeholder="Search"
-              onChange={(e)=>updateSearchParams({searchTerm: e.target.value})}
-              style={{                                
-                height: 48,
-                color: "#808080",
-              }}
-              className="!rounded-r-none md:!w-[350px]"
-            />
-            <Button
-              size="large"
-              icon={<SearchOutlined />}              
-              target="_blank"
-              className="!bg-white !w-[50px] !h-[48px] !rounded-none !rounded-r-md"
-            />
-          </div>
-        </Form>
+
+        <div className="flex items-center gap-3">
+          <Form>
+            <div className="flex items-center">
+              <Input
+                id="search"
+                placeholder="Search"
+                onChange={(e) => updateSearchParams({ searchTerm: e.target.value })}
+                style={{
+                  height: 42,
+                  color: "#808080",
+                }}
+                className="!rounded-r-none md:!w-[350px]"
+              />
+              <Button
+                size="large"
+                icon={<SearchOutlined />}
+                target="_blank"
+                className="!bg-white !w-[50px] !h-[42px] !rounded-none !rounded-r-md"
+              />
+            </div>
+          </Form>
+
+          <Select
+            allowClear
+            size="large"
+            placeholder="Filter By Role"
+            onChange={(value) => updateSearchParams({ role: value })}
+            style={{ width: 200, height: 42 }}
+            options={[
+              { value: 'USER', label: <span >User</span> },
+              { value: 'ARTIST', label: <span > Artist</span> },
+              { value: 'COLLECTOR', label: <span >Collector</span> },
+              { value: 'EDUCATIONAL_INSTITUTE', label: <span >Education</span> },
+              { value: 'MUSEUM', label: <span >Museum</span> },
+            ]}
+          />
+        </div>
+
       </div>
       <WarningModal
         open={openWarning}
@@ -163,15 +187,15 @@ const UserList = () => {
         pagination={{
           total: usersData?.pagination?.total,
           current: currentPage,
-          pageSize,    
-          onChange: (page) => setCurrentPage(page),     
+          pageSize,
+          onChange: (page) => { setCurrentPage(page); updateSearchParams({ page: page }) },
         }}
-      />      
-      <UserDetailsModal   
-      open={openUserDetails}
-      data={selectedUser}    
-      onClose={()=>setOpenUserDetails(false)} 
-      />      
+      />
+      <UserDetailsModal
+        open={openUserDetails}
+        data={selectedUser}
+        onClose={() => setOpenUserDetails(false)}
+      />
     </div>
   );
 };
@@ -207,7 +231,7 @@ const WarningModal = ({ open, setOpen, onSubmit }: WarningModalProps) => {
   return (
     <Modal
       title={<p className="text-2xl pt-2.5 pb-1 leading-0 font-semibold text-primary">Warning</p>}
-      
+
       open={open}
       onCancel={handleClose}
       footer={false}
@@ -230,7 +254,7 @@ const WarningModal = ({ open, setOpen, onSubmit }: WarningModalProps) => {
           rules={[{ required: true, message: "Please enter warning reason" }]}
         >
           <Input
-            placeholder="Enter warning reason"  style={{height: 48}}          
+            placeholder="Enter warning reason" style={{ height: 48 }}
           />
         </FormItem>
 

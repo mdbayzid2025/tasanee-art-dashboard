@@ -26,8 +26,8 @@ import FAQ from "../dashboard/FAQ/Faq";
 const router = createBrowserRouter([
     {
         path: "/",
-        // element: <PrivateRoute> <MainLayout /> </PrivateRoute>,
-        element:  <MainLayout />,
+        element: <PrivateRoute> <MainLayout /> </PrivateRoute>,
+        // element:  <MainLayout />,
         errorElement: <ErrorPage />,
         children: [
             {
