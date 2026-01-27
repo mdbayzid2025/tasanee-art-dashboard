@@ -31,7 +31,7 @@ const AdminList = () => {
       const res = await updateUser(data).unwrap();
 
       toast.success(res?.data?.message);
-    } catch (error : any) {
+    } catch (error: any) {
       toast.error(error?.data?.message);
     }
   };
@@ -41,13 +41,13 @@ const AdminList = () => {
       // @ts-ignore
       const res = await deleteUser(selectedUser?._id).unwrap();
       console.log("delete", res);
-      
+
       toast.success("Admin delete Success");
       setSelectedUser(null);
       setOpenConfirm(false);
-    } catch (error : any) {     
+    } catch (error: any) {
       console.log("update", error);
-      
+
       toast.error(error?.data?.message);
     }
   };
@@ -76,9 +76,8 @@ const AdminList = () => {
       key: "status",
       render: (text: string) => (
         <span
-          className={`${
-            text == "ACTIVE" ? "text-green-500" : "text-red-400"
-          } font-semibold`}
+          className={`${text == "ACTIVE" ? "text-green-500" : "text-red-400"
+            } font-semibold`}
         >
           {text}
         </span>
@@ -101,7 +100,7 @@ const AdminList = () => {
             <EyeOutlined
               size={20}
               style={{ color: "#1890ff", cursor: "pointer" }}
-              onClick={() => {}}
+              onClick={() => { }}
             />
           </Tooltip>
           <Tooltip title={record?.status == "Active" ? "Active" : "Banned"}>
@@ -122,12 +121,20 @@ const AdminList = () => {
             </div>
           </Tooltip>
           <DeleteOutlined
+            disabled={record?.role === 'SUPER_ADMIN'}
             size={20}
-            style={{ color: "red", cursor: "pointer" }}
-            onClick={() => {
-              setSelectedUser(record);
-              setOpenConfirm(true);
+            style={{
+              color: record?.role === 'SUPER_ADMIN' ? "#121212" : "red",
+              cursor: record?.role === 'SUPER_ADMIN' ? "not-allowed" : "pointer",
             }}
+            onClick={
+              record?.role === 'SUPER_ADMIN'
+                ? undefined
+                : () => {
+                  setSelectedUser(record);
+                  setOpenConfirm(true);
+                }
+            }           
           />
         </Space>
       ),
@@ -136,7 +143,7 @@ const AdminList = () => {
 
   const handleUpdateAdmin = async (values: any) => {
     try {
-      await createAdmin(values).unwrap();        
+      await createAdmin(values).unwrap();
       toast.success("Admin created Success")
       refetch();
 
@@ -165,9 +172,8 @@ const AdminList = () => {
       <ConfirmModal
         open={openConfirm}
         title="Delete Admin?"
-        content={`Are you sure you want to delete "${
-          (selectedUser as any)?.name
-        } Admin"?`}
+        content={`Are you sure you want to delete "${(selectedUser as any)?.name
+          } Admin"?`}
         okText="Yes, Delete"
         cancelText="Cancel"
         onConfirm={handleDeleteAdmin}

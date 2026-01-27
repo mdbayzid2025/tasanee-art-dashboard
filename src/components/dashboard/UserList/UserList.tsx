@@ -4,15 +4,14 @@ import {
 } from "@ant-design/icons";
 import { Button, Divider, Form, Input, Modal, Select, Space, Table, Tooltip } from "antd";
 import FormItem from "antd/es/form/FormItem";
-import { useEffect, useState } from "react";
-import { CiLock, CiUnlock } from "react-icons/ci";
-import { TbMessageDots } from "react-icons/tb";
-import UserDetailsModal from "./UserDetailsModal";
-import { useGetUsersQuery, useUpdateUserMutation } from "../../../redux/features/user/userApi";
-import { useUpdateSearchParams } from "../../../utils/updateSearchParams";
-import toast from "react-hot-toast";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { CiLock, CiUnlock } from "react-icons/ci";
+import { useGetUsersQuery, useUpdateUserMutation } from "../../../redux/features/user/userApi";
 import { getSearchParams } from "../../../utils/getSearchParams";
+import { useUpdateSearchParams } from "../../../utils/updateSearchParams";
+import UserDetailsModal from "./UserDetailsModal";
 
 
 
@@ -114,17 +113,7 @@ const UserList = () => {
               }
             </div>
 
-          </Tooltip>
-          <Tooltip title="Edit">
-            <TbMessageDots
-              size={20}
-              style={{ color: "orange", cursor: "pointer" }}
-              onClick={() => {
-                setSelectedUser(record);
-                setOpenWarning(true);
-              }}
-            />
-          </Tooltip>
+          </Tooltip>          
         </Space>
       ),
     },
