@@ -17,6 +17,9 @@ const dashboardApi = baseApi.injectEndpoints({
         getRevenueGrowth: builder.query({
             query: ()=>`/analytics/revenue-growth`,
             transformResponse: (res: {data: any})=> res?.data
+        }),
+        getAllTransactions: builder.query({
+            query: ()=>`/transaction${location?.search}`,            
         })
     })
 })
@@ -25,5 +28,6 @@ export const {
     useGetAnalyticsQuery,
     useGetUsersGrowthQuery,
     useGetOverViewQuery,
-    useGetRevenueGrowthQuery
+    useGetRevenueGrowthQuery,
+    useGetAllTransactionsQuery,
 } = dashboardApi;

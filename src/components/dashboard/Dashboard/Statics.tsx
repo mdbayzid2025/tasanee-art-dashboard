@@ -4,7 +4,7 @@ import { LiaUserCheckSolid } from "react-icons/lia";
 
 const Statics = ({users}:any) => {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-x-10 justify-between">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-x-5 justify-between">
 
   {/* Total User */}
   <div className="flex justify-between gap-5 bg-white w-full p-5 rounded-2xl">
