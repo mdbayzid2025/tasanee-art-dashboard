@@ -61,3 +61,7 @@ body {
 .ant-otp {
   width: 100% !important;  
 }
+
+.ant-menu-item-selected{
+  font-weight: 500 !important;
+}

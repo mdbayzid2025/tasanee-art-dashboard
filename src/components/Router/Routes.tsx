@@ -21,6 +21,7 @@ import TermsCondition from "../dashboard/TermsCondition";
 import PrivateRoute from "./PrivateRoute";
 import About from "../dashboard/About";
 import FAQ from "../dashboard/FAQ/Faq";
+import CommissionShipping from "../dashboard/CommissionShipping/CommissionShipping";
 
 
 const router = createBrowserRouter([
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
             },
 
 
+            {
+                path: "commission-shipping",
+                element: <CommissionShipping />
+            },
             {
                 path: "setting",
                 element: <Setting />
