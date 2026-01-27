@@ -18,9 +18,6 @@ type TUserGrowth = {
 }
 const TotalUserChart = ({userGrowth}: {userGrowth: TUserGrowth[]} ) => {
 
-  console.log("userGrowth", userGrowth);
-
-
   const CustomTooltip = ({ active, payload,  coordinate }: any) => {
     const isVisible = active && payload && payload.length;
     const tooltipHeight = 40; // Height of your tooltip (you may need to adjust this)
@@ -29,7 +26,7 @@ const TotalUserChart = ({userGrowth}: {userGrowth: TUserGrowth[]} ) => {
 
     return (
       <div
-        className="top-20 mr-10"
+        className="top-20"
         style={{
           visibility: isVisible ? "visible" : "hidden",
           position: "absolute",
@@ -52,7 +49,7 @@ const TotalUserChart = ({userGrowth}: {userGrowth: TUserGrowth[]} ) => {
   const year = new Date().getFullYear();
   
   return (
-    <div className="w-full pb-5 pt-8 bg-white rounded-xl mt-6">
+    <div className="w-full pb-5 pt-8 bg-white rounded-xl">
       <div className="flex items-center justify-between px-6">
         <p className="font-semibold text-primary text-2xl">
           Users
@@ -89,13 +86,13 @@ const TotalUserChart = ({userGrowth}: {userGrowth: TUserGrowth[]} ) => {
         </ConfigProvider>
       </div>
 
-      <div className="mt-6">
-        <ResponsiveContainer width="100%" height={200}>
+      <div className="">
+        <ResponsiveContainer width="100%" height={300}>
           <BarChart
             data={userGrowth}
             style={{ backgroundColor: "rgba(0,0,,0,.3)" }}
             margin={{
-              top: 5,
+              top: 20, 
               right: 30,
               left: 20,
               bottom: 5,
