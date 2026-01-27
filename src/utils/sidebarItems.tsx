@@ -1,9 +1,11 @@
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { CiLock } from "react-icons/ci";
-import { FaRegCircleUser } from "react-icons/fa6";
+import { FaQuestion, FaRegCircleUser } from "react-icons/fa6";
+import { FiDollarSign } from "react-icons/fi";
 import { GrTransaction, GrUserSettings } from "react-icons/gr";
 import { IoDocumentOutline, IoSettingsOutline } from "react-icons/io5";
-import { PiUsersThreeLight } from "react-icons/pi";
+import { LuMessageCircleWarning } from "react-icons/lu";
+import { MdOutlinePrivacyTip } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
 import { TfiViewGrid } from "react-icons/tfi";
 
@@ -31,6 +33,12 @@ export const sidebarItems = [
     label: "Transaction",
     path: "transaction",
     icon: <GrTransaction size={20} />,
+  },
+  {
+    key: "commission-shipping",
+    label: "Commission & Shipping",
+    path: "commission-shipping",
+    icon: <FiDollarSign size={20} />,
   },
  
   {
@@ -68,19 +76,19 @@ export const sidebarItems = [
         key: "policy",
         label: "Privacy Policy",
         path: "policy",
-        icon: <PiUsersThreeLight size={20} />,
+        icon: <MdOutlinePrivacyTip size={20} />,
       },
       {
         key: "about",
         label: "About Us",
         path: "about",
-        icon: <PiUsersThreeLight size={20} />,
+        icon: <LuMessageCircleWarning size={20} />,
       },
       {
         key: "faq",
         label: "FAQ",
         path: "faq",
-        icon: <PiUsersThreeLight size={20} />,
+        icon: <FaQuestion size={20} />,
       },
     ],
   },

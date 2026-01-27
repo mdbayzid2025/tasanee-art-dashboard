@@ -32,7 +32,7 @@ const Categories = () => {
       key: "title",
       render: (_:any, record:any)=> 
       <div className="flex items-center gap-3">
-        <Image src={`${imageUrl}${record?.image}`} width={70} height={70} alt="Logo" className="rounded-full" />
+        <Image src={`${imageUrl}${record?.image}`} width={70} height={70} alt="Logo" className="rounded-lg" />
 
         <span className="font-bold">{record?.title}</span>
       </div>,

@@ -50,46 +50,45 @@ const EarningCharts = () => {
 
   const year = new Date().getFullYear();
 
-  return (
-    <div className="">
-      <div className="bg-white p-5 rounded-xl">
-              <div className="flex items-center justify-between gap-8 mb-3">
-        <div className="">
-          <p className="font-semibold text-primary text-2xl">Earning</p>
-        </div>
+  return (    
+      <div className="w-full bg-white p-5 pb-0 rounded-xl">
+        <div className="flex items-center justify-between  ">
+          <div className="">
+            <p className="font-semibold text-primary text-2xl">Earning</p>
+          </div>
 
-        <ConfigProvider
-          theme={{
-            components: {
-              Select: {
-                colorBgContainer: "#8B4E2E",
-                colorBorder: "#8B4E2E",
-                colorText: "#FFFFFF",                
-                colorBgElevated: "rgba(139,78,46, 1)",
-                optionSelectedBg: "#121212",
-                optionActiveBg: "#404040",
+          <ConfigProvider
+            theme={{
+              components: {
+                Select: {
+                  colorBgContainer: "#8B4E2E",
+                  colorBorder: "#8B4E2E",
+                  colorText: "#FFFFFF",
+                  colorBgElevated: "rgba(139,78,46, 1)",
+                  optionSelectedBg: "#121212",
+                  optionActiveBg: "#404040",
+                },
               },
-            },
-          }}
-        >
-          <Select
-            defaultValue={year}
-            style={{
-              width: 120,
-              paddingRight: 5,
-              textAlign: "start",
-              backgroundColor: "transparent",
             }}
           >
-            <Option value={year}>{year}</Option>
-            <Option value={year - 1}>{year - 1}</Option>
-            <Option value={year - 2}>{year - 2}</Option>
-            <Option value={year - 3}>{year - 3}</Option>
-            <Option value={year - 4}>{year - 4}</Option>
-          </Select>
-        </ConfigProvider>
-      </div>
-        <ResponsiveContainer width="100%" height={260}>
+            <Select
+              defaultValue={year}
+              style={{
+                width: 120,
+                paddingRight: 5,
+                textAlign: "start",
+                backgroundColor: "transparent",
+              }}
+            >
+              <Option value={year}>{year}</Option>
+              <Option value={year - 1}>{year - 1}</Option>
+              <Option value={year - 2}>{year - 2}</Option>
+              <Option value={year - 3}>{year - 3}</Option>
+              <Option value={year - 4}>{year - 4}</Option>
+            </Select>
+          </ConfigProvider>
+        </div>
+        <ResponsiveContainer width="100%" height={300}>
           <AreaChart
             data={demoEarningsData}
             margin={{ left: 0, top: 20, right: 10, bottom: 0 }}
@@ -120,8 +119,7 @@ const EarningCharts = () => {
             />
           </AreaChart>
         </ResponsiveContainer>
-      </div>
-    </div>
+      </div>    
   );
 };
 

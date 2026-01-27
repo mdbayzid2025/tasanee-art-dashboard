@@ -1,7 +1,6 @@
-import { BellOutlined } from "@ant-design/icons";
-import { Avatar, Badge, Button } from "antd";
-import { useGetProfileQuery } from "../../redux/features/auth/authApi";
+import { Avatar } from "antd";
 import { imageUrl } from "../../redux/base/baseAPI";
+import { useGetProfileQuery } from "../../redux/features/auth/authApi";
 
 const DashboardHeader = () => {
 

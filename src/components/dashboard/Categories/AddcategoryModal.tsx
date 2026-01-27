@@ -48,7 +48,9 @@ const AddcategoryModal = ({
 
         setLoading(true);
 
-        const res = await updateCategory({ id: editData?._id, formData });
+        const res = await updateCategory({ id: editData?._id, formData }).unwrap();
+
+        console.log("updateCategory res", res);
         if (res?.data) {
           refetch();
           form.resetFields();
@@ -79,8 +81,10 @@ const AddcategoryModal = ({
           setLoading(false);
         }
       }
-    } catch (error) {
+    } catch (error:any) {
       console.log("Validation Failed:", error);
+      toast.error(error?.data?.message);
+      setLoading(false);
     }
   };
 
