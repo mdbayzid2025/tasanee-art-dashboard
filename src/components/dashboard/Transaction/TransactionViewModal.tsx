@@ -1,15 +1,17 @@
-import { Button, Divider, Modal, Table } from "antd";
+import { Avatar, Button, Divider, Modal, Table } from "antd";
 import dayjs from "dayjs";
+import { imageUrl } from "../../../redux/base/baseAPI";
 
 const TransactionViewModal = ({ open, onClose, transaction }: any) => {
 
-  // Define columns for the transaction details table
+  console.log('TransactionViewModal', transaction)
   const columns = [
     {
       title: "Field",
       dataIndex: "field",
       key: "field",
       render: (text: any) => <strong>{text}</strong>,
+      width: 180,
     },
     {
       title: "Value",
@@ -18,43 +20,73 @@ const TransactionViewModal = ({ open, onClose, transaction }: any) => {
     },
   ];
 
-  // Format the data for the table
   const dataSource = [
     {
-      key: "buyerName",
-      field: "Buyer Name",
-      value: transaction?.buyerName,
+      key: "buyer",
+      field: "Buyer",
+      value: (
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <Avatar src={`${imageUrl}${transaction?.buyerId?.profileImage}`} size={40} />
+          <span>{transaction?.buyerId?.name}</span>
+        </div>
+      ),
     },
     {
-      key: "transactionDate",
+      key: "sellerId",
+      field: "Seller",
+      value: (
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <Avatar src={`${imageUrl}${transaction?.sellerId?.profileImage}`} size={40} />
+          <span>{transaction?.sellerId?.name}</span>
+        </div>
+      ),
+    },
+    {
+      key: "item",
+      field: "Item",
+      value: transaction?.item?.title,
+    },
+    {
+      key: "platformFee",
+      field: "Platform Fee",
+      value: `${transaction?.platformFee} Tk`,
+    },
+    {
+      key: "sellerEarning",
+      field: "Seller Earning",
+      value: `${transaction?.sellerEarning} Tk`,
+    },
+    {
+      key: "date",
       field: "Transaction Date",
-      value: dayjs(transaction?.transactionDate).format("MMMM D, YYYY"),
-    },
-     {
-      key: "transactionId",
-      field: "Transaction",
-      value: transaction?.transactionId,
-     
+      value: transaction?.timestamp
+        ? dayjs(transaction.timestamp).format("MMMM D, YYYY")
+        : "N/A",
     },
     {
-      key: "Status",
+      key: "trxId",
+      field: "Transaction ID",
+      value: transaction?.trxId,
+    },
+    transaction?.status && {
+      key: "status",
       field: "Status",
       value: (
         <span
           style={{
             color:
-              transaction?.status === "Completed"
+              transaction.status === "Completed"
                 ? "green"
-                : transaction?.status === "Pending"
+                : transaction.status === "Pending"
                 ? "orange"
                 : "red",
           }}
         >
-          {transaction?.status}
+          {transaction.status}
         </span>
       ),
-    },       
-  ];
+    },
+  ].filter(Boolean); // removes empty rows if status doesn't exist
 
   return (
     <Modal
@@ -63,29 +95,30 @@ const TransactionViewModal = ({ open, onClose, transaction }: any) => {
       footer={null}
       centered
       width={600}
-      title={<h3 className="text-xl font-semibold text-primary">Transaction Details</h3>}
+      title={
+        <h3 className="text-xl font-semibold text-primary">
+          Transaction Details
+        </h3>
+      }
     >
-        <Divider />
+      <Divider />
+
       {transaction && (
-        <div className="">
-          <Table
-            dataSource={dataSource}
-            columns={columns}
-            pagination={false} // Disable pagination
-            showHeader={false} // Hide header
-            bordered
-            rowClassName="transaction-row"
-            size="middle"
-            className="transaction-table"
-          />
-        </div>
+        <Table
+          dataSource={dataSource}
+          columns={columns}
+          pagination={false}
+          showHeader={false}
+          bordered
+          size="middle"
+        />
       )}
 
       <div className="flex justify-end space-x-4 mt-6">
         <Button
           onClick={onClose}
           className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
-          style={{ borderRadius: "10px", fontWeight: "500", padding: "8px 16px" }}
+          style={{ borderRadius: "10px", fontWeight: "500" }}
         >
           Close
         </Button>

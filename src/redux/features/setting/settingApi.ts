@@ -72,10 +72,32 @@ const settingApi = baseApi.injectEndpoints({
       query: () => "/reports",
       transformResponse: (res: { data: any }) => res?.data,
     }),
+
+
+    // ---------------- Commission and Shipping Charge APIs can be added here in future ----------------
+    getCommissionShipping: builder.query({
+      query: () => "/settings",
+      transformResponse: (res: { data: any }) => res?.data,
+      providesTags: ["settings"],
+    }), 
+
+    updateCommissionShipping: builder.mutation({
+     query: (data) => {
+        return {
+          url: "/settings/update",
+          method: "POST",
+          body: data,
+        };
+      },
+       invalidatesTags: ['settings'],    
+    }), 
   }),
 });
 
 export const {
+useGetCommissionShippingQuery,
+useUpdateCommissionShippingMutation,
+
   useGetFAQQuery,
   useGetAboutQuery,
   useGetPrivacyPolicyQuery,
